@@ -13,10 +13,9 @@ export const googleAuth = async (req, res) => {
                 email
             })
         }
-        console.log("JWT_SECRET:", process.env.JWT_SECRET);
-        console.log("User ID:", user._id);
+
         let token = await genToken(user._id);
-        console.log("Generated Token:", token);
+
         res.cookie("token", token,{
             httpOnly: true,
             secure: false,

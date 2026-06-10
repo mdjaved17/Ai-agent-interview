@@ -13,13 +13,17 @@ export const googleAuth = async (req, res) => {
                 email
             })
         }
+        console.log("JWT_SECRET:", process.env.JWT_SECRET);
+        console.log("User ID:", user._id);
         let token = await genToken(user._id);
+        console.log("Generated Token:", token);
         res.cookie("token", token,{
             httpOnly: true,
             secure: false,
             sameSite: "strict",
             maxAge: 7*24*60*60*1000
         })
+        
         return res.status(200).json({ message: "Authentication successful", user});
     }catch(error){
         console.error("Error in Google Auth:", error);
